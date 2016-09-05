@@ -1,11 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>区域管理</title>
-	<meta name="decorator" content="default"/>
-	<%@include file="/WEB-INF/views/include/treetable.jsp" %>
-	<script type="text/javascript">
+<title>区域管理</title>
+<meta name="decorator" content="default" />
+<%@include file="/WEB-INF/views/include/treetable.jsp"%>
+<script type="text/javascript">
 		$(document).ready(function() {
 			var tpl = $("#treeTableTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
 			var data = ${fns:toJson(list)}, rootId = "0";
@@ -30,11 +30,24 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/area/">区域列表</a></li>
-		<shiro:hasPermission name="sys:area:edit"><li><a href="${ctx}/sys/area/form">区域添加</a></li></shiro:hasPermission>
+		<shiro:hasPermission name="sys:area:edit">
+			<li><a href="${ctx}/sys/area/form">区域添加</a></li>
+		</shiro:hasPermission>
 	</ul>
-	<sys:message content="${message}"/>
-	<table id="treeTable" class="table table-striped table-bordered table-condensed">
-		<thead><tr><th>区域名称</th><th>区域编码</th><th>区域类型</th><th>备注</th><shiro:hasPermission name="sys:area:edit"><th>操作</th></shiro:hasPermission></tr></thead>
+	<sys:message content="${message}" />
+	<table id="treeTable"
+		class="table table-striped table-bordered table-condensed">
+		<thead>
+			<tr>
+				<th>区域名称</th>
+				<th>区域编码</th>
+				<th>区域类型</th>
+				<th>备注</th>
+				<shiro:hasPermission name="sys:area:edit">
+					<th>操作</th>
+				</shiro:hasPermission>
+			</tr>
+		</thead>
 		<tbody id="treeTableList"></tbody>
 	</table>
 	<script type="text/template" id="treeTableTpl">

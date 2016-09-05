@@ -1,0 +1,28 @@
+update: sysIndex.jsp
+	增加注释<%-- 					<li><a href="${pageContext.request.contextPath}${fns:getFrontPath()}/index-${fnc:getCurrentSiteId()}.html" target="_blank" title="访问网站主页"><i class="icon-home"></i></a></li> --%>
+	
+update: areaList.jsp
+		<div class="control-group">
+			<label class="control-label">区域编码:</label>
+			<div class="controls">
+				<form:input path="code" htmlEscape="false" maxlength="50"
+					class="required" />
+				<span class="help-inline"><font color="red">*</font></span> <input
+					id="btnTips" class="btn btn-primary" type="button" value="提 示"
+					onclick="areaCodeTips()" />
+			</div>
+		</div>
+		
+debug: userList.jsp
+	<li><label>归属部门：</label><sys:treeselect id="office" name="office.id" value="${user.office.id}" labelName="office.name" labelValue="${user.office.name}" title="部门" url="/sys/office/treeData?type=2" cssClass="input-small" allowClear="true" notAllowSelectParent="true"/></li>
+	在54行-中文乱码-user.office.name
+
+remarks:
+1.可以忽略文档所说的那些"必填字段"
+2.创建数据表的时候,可以不用建立主副表的外键。在生成代码的时候指明一下就好。
+3.在生成代码的时候,主副表只需配置主表即可,副表的代码也会自动生成(注意: 不会生成副表的service和web这两层的代码)。
+
+
+
+
+
