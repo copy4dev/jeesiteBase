@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.debug.dao.adr.DictProvincesDao">
+    
+	<sql id="dictProvincesColumns">
+		a.id AS "id",
+		a.provinceid AS "provinceid",
+		a.province AS "province"
+	</sql>
+	
+	<sql id="dictProvincesJoins">
+	</sql>
+    
+	<select id="get" resultType="DictProvinces">
+		SELECT 
+			<include refid="dictProvincesColumns"/>
+		FROM dict_provinces a
+		<include refid="dictProvincesJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="DictProvinces">
+		SELECT 
+			<include refid="dictProvincesColumns"/>
+		FROM dict_provinces a
+		<include refid="dictProvincesJoins"/>
+		<where>
+			
+			<if test="provinceid != null and provinceid != ''">
+				AND a.provinceid = #{provinceid}
+			</if>
+			<if test="province != null and province != ''">
+				AND a.province LIKE 
+					<if test="dbName == 'oracle'">'%'||#{province}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{province}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{province},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DictProvinces">
+		SELECT 
+			<include refid="dictProvincesColumns"/>
+		FROM dict_provinces a
+		<include refid="dictProvincesJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO dict_provinces(
+			id,
+			provinceid,
+			province
+		) VALUES (
+			#{id},
+			#{provinceid},
+			#{province}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE dict_provinces SET 	
+			id = #{id},
+			provinceid = #{provinceid},
+			province = #{province}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM dict_provinces
+		WHERE id = #{id}
+	</update>
+	
+	<!-- user define -->
+	
+	<!-- 根据省份名字进行模糊查询 -->
+	<select id="findByName" resultType="DictProvinces">
+		SELECT 
+			<include refid="dictProvincesColumns"/>
+		FROM dict_provinces a
+		WHERE a.province LIKE CONCAT('%',#{provinceid},'%')
+	</select>
+	
+</mapper>

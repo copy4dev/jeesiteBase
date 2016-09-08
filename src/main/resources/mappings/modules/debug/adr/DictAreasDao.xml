@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.debug.dao.adr.DictAreasDao">
+    
+	<sql id="dictAreasColumns">
+		a.id AS "id",
+		a.areaid AS "areaid",
+		a.area AS "area",
+		a.cityid AS "cityid"
+	</sql>
+	
+	<sql id="dictAreasJoins">
+	</sql>
+    
+	<select id="get" resultType="DictAreas">
+		SELECT 
+			<include refid="dictAreasColumns"/>
+		FROM dict_areas a
+		<include refid="dictAreasJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="DictAreas">
+		SELECT 
+			<include refid="dictAreasColumns"/>
+		FROM dict_areas a
+		<include refid="dictAreasJoins"/>
+		<where>
+			
+			<if test="areaid != null and areaid != ''">
+				AND a.areaid = #{areaid}
+			</if>
+			<if test="area != null and area != ''">
+				AND a.area LIKE 
+					<if test="dbName == 'oracle'">'%'||#{area}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{area}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{area},'%')</if>
+			</if>
+			<if test="cityid != null and cityid != ''">
+				AND a.cityid = #{cityid}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DictAreas">
+		SELECT 
+			<include refid="dictAreasColumns"/>
+		FROM dict_areas a
+		<include refid="dictAreasJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO dict_areas(
+			id,
+			areaid,
+			area,
+			cityid
+		) VALUES (
+			#{id},
+			#{areaid},
+			#{area},
+			#{cityid}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE dict_areas SET 	
+			id = #{id},
+			areaid = #{areaid},
+			area = #{area},
+			cityid = #{cityid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM dict_areas
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.debug.dao.adr.DictCitiesDao">
+    
+	<sql id="dictCitiesColumns">
+		a.id AS "id",
+		a.cityid AS "cityid",
+		a.city AS "city",
+		a.provinceid AS "provinceid"
+	</sql>
+	
+	<sql id="dictCitiesJoins">
+	</sql>
+    
+	<select id="get" resultType="DictCities">
+		SELECT 
+			<include refid="dictCitiesColumns"/>
+		FROM dict_cities a
+		<include refid="dictCitiesJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="DictCities">
+		SELECT 
+			<include refid="dictCitiesColumns"/>
+		FROM dict_cities a
+		<include refid="dictCitiesJoins"/>
+		<where>
+			
+			<if test="cityid != null and cityid != ''">
+				AND a.cityid = #{cityid}
+			</if>
+			<if test="city != null and city != ''">
+				AND a.city LIKE 
+					<if test="dbName == 'oracle'">'%'||#{city}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{city}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{city},'%')</if>
+			</if>
+			<if test="provinceid != null and provinceid != ''">
+				AND a.provinceid = #{provinceid}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DictCities">
+		SELECT 
+			<include refid="dictCitiesColumns"/>
+		FROM dict_cities a
+		<include refid="dictCitiesJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO dict_cities(
+			id,
+			cityid,
+			city,
+			provinceid
+		) VALUES (
+			#{id},
+			#{cityid},
+			#{city},
+			#{provinceid}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE dict_cities SET 	
+			id = #{id},
+			cityid = #{cityid},
+			city = #{city},
+			provinceid = #{provinceid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM dict_cities
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
