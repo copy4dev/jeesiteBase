@@ -3,6 +3,8 @@ package com.thinkgem.jeesite.modules.timer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.thinkgem.jeesite.modules.debug.util.AddressUtil;
+
 /**
  * 定时任务示例
  * 
@@ -13,10 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimerJob {
 
-	@Scheduled(cron = "0 0 0 3/6 * *")
+	@Scheduled(cron = "*/10 * * * * *")
 	public void test() {
-
-		System.out.println("success");
-
+		System.out.println(" --- start --- ");
+		AddressUtil.main(null);
+		System.out.println(" ---  end  --- ");
 	}
 }

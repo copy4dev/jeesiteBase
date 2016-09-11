@@ -94,4 +94,14 @@
 		WHERE id = #{id}
 	</update>
 	
+	<!-- user define -->
+	
+	<!-- 根据区县名字进行模糊查询 -->
+	<select id="findByName" resultType="DictAreas">
+		SELECT 
+			<include refid="dictAreasColumns"/>
+		FROM dict_areas a
+		WHERE a.area LIKE CONCAT('%',#{area},'%')
+	</select>
+	
 </mapper>
