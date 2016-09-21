@@ -94,4 +94,14 @@
 		WHERE id = #{id}
 	</update>
 	
+	<!-- user define -->
+	
+	<!-- 根据城市名字进行模糊查询 -->
+	<select id="findByName" resultType="DictCities">
+		SELECT 
+			<include refid="dictCitiesColumns"/>
+		FROM dict_cities a
+		WHERE a.city LIKE CONCAT('%',#{city},'%')
+	</select>
+	
 </mapper>

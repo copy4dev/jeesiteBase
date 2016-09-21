@@ -14,5 +14,12 @@ import com.thinkgem.jeesite.modules.debug.entity.adr.DictCities;
  */
 @MyBatisDao
 public interface DictCitiesDao extends CrudDao<DictCities> {
-	
+
+	/**
+	 * 根据城市名字进行模糊查询
+	 * @param str
+	 * @return
+	 */
+	public DictCities findByName(String str);
+
 }

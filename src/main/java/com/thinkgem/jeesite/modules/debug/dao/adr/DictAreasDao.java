@@ -14,5 +14,12 @@ import com.thinkgem.jeesite.modules.debug.entity.adr.DictAreas;
  */
 @MyBatisDao
 public interface DictAreasDao extends CrudDao<DictAreas> {
-	
+
+	/**
+	 * 根据区县名字进行模糊查询
+	 * @param str
+	 * @return
+	 */
+	public DictAreas findByName(String str);
+
 }
