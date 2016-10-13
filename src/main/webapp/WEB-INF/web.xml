@@ -5,6 +5,11 @@
 	version="2.5">
 
 	<display-name>JeeSite</display-name>
+	
+	<!-- 配置工程路径 -->
+	<listener>
+		<listener-class>com.thinkgem.jeesite.modules.sys.utils.ProjectDirListener</listener-class>
+	</listener>
 
 	<!-- Context ConfigLocation -->
 	<context-param>

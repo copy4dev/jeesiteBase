@@ -402,7 +402,7 @@ public class SystemService extends BaseService implements InitializingBean {
 	public static boolean printKeyLoadMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\r\n======================================================================\r\n");
-		sb.append("\r\n            欢迎使用 " + Global.getConfig("productName") + "\r\n");
+		sb.append("\r\n    欢迎使用 " + Global.getConfig("productName"));
 		sb.append("\r\n    Powered By http://jeesite.com");
 		sb.append("\r\n    Updated By http://https://github.com/copy4dev/jeesiteBase.git\r\n");
 		sb.append("\r\n======================================================================\r\n");

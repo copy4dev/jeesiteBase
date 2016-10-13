@@ -21,6 +21,7 @@ remarks:
 1.可以忽略文档所说的那些"必填字段"
 2.创建数据表的时候,可以不用建立主副表的外键。在生成代码的时候指明一下就好。
 3.在生成代码的时候,主副表只需配置主表即可,副表的代码也会自动生成(注意: 不会生成副表的service和web这两层的代码)。
+4.在模块精简时,可删除的模块有act、cms、debug、oa、test。模块所在路径：src/main/java/com.thinkgem.jeesite.modules、src/main/resources/mappings/modules、webapp/WEB-INF/views/modules
 
 
 
